@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.loginToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Login");
-
         mAuth = FirebaseAuth.getInstance();
         loader = new ProgressDialog(this);
 
@@ -73,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                     loader.setCanceledOnTouchOutside(false);
                     loader.show();
 
-                    mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
