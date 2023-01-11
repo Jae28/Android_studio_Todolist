@@ -12,10 +12,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -143,5 +147,52 @@ public class HomeActivity extends AppCompatActivity {
 
         });
         dialog.show();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerOptions<Model> options = new FirebaseRecyclerOptions.Builder<Model>()
+                .setQuery(reference, Model.class)
+                .build();
+
+        FirebaseRecyclerAdapter<Model, MyViewHolder> adapter = new FirebaseRecyclerAdapter<Model, MyViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull Model model) {
+                holder.setDate(model.getDate());
+                holder.setTask(model.getTask());
+                holder.setDesc(model.getDescription());
+            }
+
+            @NonNull
+            @Override
+            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.retrieved_layout, parent, false);
+                return new MyViewHolder(view);
+            }
+        };
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+        View mView;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mView = itemView;
+        }
+        public void setTask(String task){
+            TextView taskTextView = mView.findViewById(R.id.taskTv);
+            taskTextView.setText(task);
+        }
+        public void setDesc(String desc){
+            TextView descTextView = mView.findViewById(R.id.descriptionTv);
+            descTextView.setText(desc);
+        }
+        public void setDate(String date){
+            TextView dateTextView = mView.findViewById(R.id.dateTv);
+        }
     }
 }
