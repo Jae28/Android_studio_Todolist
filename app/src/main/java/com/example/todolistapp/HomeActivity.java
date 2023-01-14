@@ -142,7 +142,7 @@ public class HomeActivity extends AppCompatActivity {
                     });
 
                 }
-                dialog.dismiss();
+                loader.dismiss();
             }
 
         });

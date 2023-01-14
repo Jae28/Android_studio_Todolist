@@ -64,6 +64,7 @@
         android:text="Register"
         android:textAllCaps="false"
         android:layout_margin="10dp"
+        android:background="#123"
         android:textColor="#fff"/>
 
     <TextView
