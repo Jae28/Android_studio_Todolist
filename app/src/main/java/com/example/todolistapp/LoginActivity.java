@@ -41,6 +41,13 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         loader = new ProgressDialog(this);
 
+        //로그인이 되어있으면 다시 앱을 들어갈때 다시 로그인할필요가 없기때문에 자동으로
+        // 홈페이지로 바로 넘어가게 해주는 함수
+//        if (mAuth != null) {
+//            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//            startActivity(intent);
+//        }
+
         loginEmail = findViewById(R.id.loginEmail);
         loginPwd = findViewById(R.id.loginPassword);
         loginBtn = findViewById(R.id.loginButton);
